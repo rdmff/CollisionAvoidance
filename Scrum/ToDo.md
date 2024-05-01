@@ -10,3 +10,6 @@ List of tasks (after step 1):
 - 10.3.3  :  Time to Potential Collision
 - 10.4.1  :  Online Costs
 - 10.4.3  : Traffic Alerts
+
+
+Obs.: use the principal folder for codes.
