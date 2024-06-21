@@ -1,0 +1,11 @@
+def pilot_response(h0, s_adv, s_res, a):
+    if a == 'COC':
+        return 1
+    elif s_res[-1] == True and s_adv == a:
+        return 1
+    elif s_adv[-1] == 'COC' and a != 'COC':
+        return 1/6
+    elif (s_adv[-1] == 'DESCEND' and a == 'CLIMB') or (s_adv[-1] == 'CLIMB' and a == 'DESCEND'):
+        return 1/6
+    elif (s_adv[-1] == 'DESCEND' and a == 'DESCEND') or (s_adv[-1] == 'CLIMB' and a == 'CLIMB'):
+        return 1/4
