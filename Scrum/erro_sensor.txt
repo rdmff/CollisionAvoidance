@@ -1,0 +1,35 @@
+import numpy as np
+
+def erro_sensor(altitude, estimate, uncertainty, measurement_uncertainty, process_uncertainty, quantizacao=25):
+    """
+    Aplica o filtro de Kalman para corrigir a altitude com erro de quantização e ruído gaussiano.
+    
+    Args:
+    altitude (float): A medição de altitude com potencial erro de quantização.
+    estimate (float): Estimativa atual do estado.
+    uncertainty (float): Incerteza atual na estimativa do estado.
+    measurement_uncertainty (float): Incerteza na medição.
+    process_uncertainty (float): Incerteza no processo.
+
+    Returns:
+    float, float: Estimativa atualizada do estado e a incerteza atualizada.
+    """
+    # Adiciona ruído gaussiano à medição para simular erro do sensor
+    ruído_gaussiano = np.random.normal(0, np.sqrt(measurement_uncertainty))
+    altitude_medição = altitude + ruído_gaussiano
+
+    # Quantização da altitude
+    altitude_quantizada = round(altitude_medição / quantizacao) * quantizacao
+    
+    # Predição
+    estimate += 0
+    uncertainty += process_uncertainty
+
+    # Ganho de Kalman
+    kalman_gain = uncertainty / (uncertainty + measurement_uncertainty)
+
+    # Correção usando a altitude quantizada
+    estimate += kalman_gain * (altitude_quantizada - estimate)
+    uncertainty = (1 - kalman_gain) * uncertainty
+
+    return estimate, uncertainty
