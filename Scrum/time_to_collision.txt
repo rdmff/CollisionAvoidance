@@ -1,0 +1,21 @@
+import numpy as np
+
+def time_to_potential_colision(h_0: np.array, h_1: np.array, v_0: np.array, v_1: np.array):
+    '''
+        This function return the tau (time of potential colision)
+        PARAMS:
+        h_0: np.array
+            Position with the airplane
+        h_1: np.array
+            Position of instrude airplane
+        v_0: np.array
+            Speed of airplane
+        v_1: np.array
+            Speed of instruded airplane
+            
+    '''
+    delta_h = np.absolute(h_0 - h_1)
+    delta_v = np.absolute(v_0 - v_1)
+    tau = np.dot(delta_h, delta_v) / np.linalg.norm(delta_v) ** 2
+
+    return tau
